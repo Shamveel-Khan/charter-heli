@@ -81,6 +81,7 @@ export function Footer() {
                   placeholder="Enter your email"
                   className="flex-1 px-4 py-3 rounded-lg bg-white/5 ring-1 ring-white/20 backdrop-blur border-0 text-white placeholder:text-white/50 focus:ring-2 focus:ring-white/30 focus:outline-none"
                 />
+                <br />
                 <Button className="bg-white text-black hover:bg-white/90 rounded-lg px-6 h-[50px]">Subscribe</Button>
               </div>
             </div>
@@ -88,7 +89,7 @@ export function Footer() {
 
           {/* Sub-footer */}
           <div className="border-t border-white/10 pt-8">
-            <p className="text-white/60 text-sm text-center">© 2025 Son Doong Expeditions</p>
+            <p className="text-white/60 text-sm text-center">© 2026 Apline Lift</p>
           </div>
         </div>
       </div>
