@@ -75,8 +75,8 @@ export function ContactSection() {
                     className="w-16 h-16 rounded-full object-cover"
                   />
                   <div>
-                    <h4 className="text-lg font-semibold text-white">David Luong</h4>
-                    <p className="text-white/70">Lead Expedition Guide</p>
+                    <h4 className="text-lg font-semibold text-white">Shamveel Khan</h4>
+                    <p className="text-white/70">Tour Guide</p>
                   </div>
                 </div>
                 <Button className="w-full bg-white text-black hover:bg-white/90 rounded-lg flex items-center justify-center gap-2 font-medium">

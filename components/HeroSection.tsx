@@ -49,10 +49,10 @@ export function HeroSection() {
         <h1 className="text-6xl md:text-8xl font-light tracking-tight mb-6 text-balance">Alpine Lift</h1>
 
         {/* {Subheading} */}
-        {/* <p className="text-xl md:text-2xl text-white/90 max-w-4xl mb-12 leading-relaxed text-pretty">
-          Discover breathtaking aerial views of Son Doong Cave and the stunning landscapes of Vietnam. Experience
-          unforgettable helicopter sightseeing tours with expert guides and world-class safety.
-        </p> */}
+        <p className="text-xl md:text-2xl text-white/90 max-w-4xl mb-12 leading-relaxed text-pretty">
+          Soar above towering mountains and dramatic landscapes on an unforgettable helicopter sightseeing tour. 
+          Enjoy panoramic views, expert-guided flights, and the highest safety standards.
+        </p>
       </div>
     </div>
   )

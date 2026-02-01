@@ -12,22 +12,22 @@ interface Tour {
 const TOURS: Tour[] = [
   {
     id: "morning",
-    name: "Morning Flight",
+    name: "Tour # 1",
     image: "/tours/morning-flight.jpg",
   },
   {
     id: "sunset",
-    name: "Sunset Experience",
+    name: "Tour # 2",
     image: "/tours/sunset-experience.jpg",
   },
   {
     id: "fullday",
-    name: "Full Day Tour",
+    name: "Tour # 3",
     image: "/tours/full-day-tour.jpg",
   },
   {
     id: "vip",
-    name: "VIP Private Tour",
+    name: "Tour # 4",
     image: "/tours/vip-private.jpg",
   },
 ]
