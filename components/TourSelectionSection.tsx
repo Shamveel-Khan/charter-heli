@@ -18,25 +18,25 @@ const TOURS: Tour[] = [
     id: "morning",
     name: "The Dawn Ascent",
     subtitle: "First Light",
-    image: "/tours/morning-flight.jpg",
+    image: "/tours/morning-flight.webp",
   },
   {
     id: "sunset",
     name: "Golden Hour",
     subtitle: "The Long Shadow",
-    image: "/tours/sunset-experience.jpg",
+    image: "/tours/sunset-experience.webp",
   },
   {
     id: "fullday",
     name: "Total Immersion",
     subtitle: "Complete Journey",
-    image: "/tours/full-day-tour.jpg",
+    image: "/tours/full-day-tour.webp",
   },
   {
     id: "vip",
     name: "Private Charter",
     subtitle: "Your Horizon",
-    image: "/tours/vip-private.jpg",
+    image: "/tours/vip-private.webp",
   },
 ]
 
