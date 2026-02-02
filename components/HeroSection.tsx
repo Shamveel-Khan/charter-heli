@@ -144,7 +144,7 @@ export function HeroSection() {
           whileTap={{ scale: 0.95 }}
         >
           <Compass className="w-5 h-5" />
-          <span className="font-medium text-balance">Karachi</span>
+          <span className="font-medium text-balance">New York</span>
         </motion.div>
 
         {/* Navigation Links */}

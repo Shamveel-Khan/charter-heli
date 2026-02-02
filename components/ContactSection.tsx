@@ -65,14 +65,14 @@ export function ContactSection() {
                 <div className="aspect-[4/5] w-full max-w-[200px] overflow-hidden bg-white/5">
                   <motion.img
                     src="https://www.elledecoration.vn/wp-content/uploads/2025/03/edam-garden.jpg"
-                    alt="Shamveel Khan"
+                    alt="John Doe"
                     className="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-[1.5s]"
                     whileHover={{ scale: 1.02 }}
                     transition={{ duration: 1.5, ease: luxuryEase }}
                   />
                 </div>
                 <figcaption>
-                  <span className="block text-white font-light tracking-wide">Shamveel Khan</span>
+                  <span className="block text-white font-light tracking-wide">John Doe</span>
                   <span className="text-xs uppercase tracking-[0.2em] text-white/40 font-light">Expedition Director</span>
                 </figcaption>
               </figure>
