@@ -16,7 +16,7 @@ export default function HomePage() {
       <HeroSection />
       <CTAHelicopterSection />
       <TourSelectionSection />
-      <SocialMediaSection />
+      {/* <SocialMediaSection /> */}
       <FAQSection />
       <ContactSection />
       <Footer />

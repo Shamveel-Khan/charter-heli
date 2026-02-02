@@ -1,81 +1,173 @@
 "use client"
 
-import { Plus, Minus } from "lucide-react"
+import { motion, AnimatePresence } from "framer-motion"
 import { useState } from "react"
+
+const luxuryEase = [0.25, 0.1, 0.25, 1.0]
 
 const FAQS = [
   {
-    question: "How physically demanding is the tour?",
+    id: "physicality",
+    question: "Physicality",
     answer:
-      "The Son Doong expedition requires excellent physical fitness. You'll trek 15+ kilometers through jungle terrain, rappel down 80-meter drops, and navigate underground rivers. Participants must be able to carry a 15kg backpack and have prior caving or trekking experience.",
+      "Excellent fitness is essential. Expect to carry 15 kilograms across 15 kilometers of jungle terrain, including vertical descents of 80 meters and river crossings.",
   },
   {
-    question: "What is included in the tour price?",
+    id: "inclusions",
+    question: "Inclusions",
     answer:
-      "Your expedition includes all permits, professional guides, safety equipment, camping gear, meals during the expedition, transportation from Phong Nha, and emergency evacuation insurance. Personal items like clothing and toiletries are not included.",
+      "All permits, specialist equipment, camp provisions, and evacuation coverage. Personal kit remains your responsibility.",
   },
   {
-    question: "Is it safe to explore Son Doong Cave?",
+    id: "safety",
+    question: "Safety Protocol",
     answer:
-      "Safety is our absolute priority. All guides are certified cave rescue specialists, we use professional-grade equipment, maintain constant communication with base camp, and have comprehensive emergency protocols. Weather conditions are monitored continuously.",
+      "Every guide holds cave rescue certification. We maintain satellite communication with base camp and monitor meteorological conditions continuously.",
   },
   {
-    question: "How do I book a spot?",
+    id: "reservation",
+    question: "Reservation",
     answer:
-      "Expeditions are limited to 10 people per group and run only during dry season (February-August). Book 6-12 months in advance through our website. A 50% deposit secures your spot, with final payment due 30 days before departure.",
+      "Ten places per expedition. Dry season only. We recommend reserving 6 to 12 months in advance.",
   },
 ]
 
-export function FAQSection() {
-  const [openFaq, setOpenFaq] = useState<number | null>(null)
+const containerVariants = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.1,
+      delayChildren: 0.3,
+    },
+  },
+}
 
-  const toggleFaq = (index: number) => {
-    setOpenFaq(openFaq === index ? null : index)
+const itemVariants = {
+  hidden: { opacity: 0, y: 20 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: {
+      duration: 0.8,
+      ease: luxuryEase,
+    },
+  },
+}
+
+export function FAQSection() {
+  const [openFaq, setOpenFaq] = useState<string | null>(null)
+
+  const toggleFaq = (id: string) => {
+    setOpenFaq(openFaq === id ? null : id)
   }
 
   return (
-    <section className="relative z-10 py-24 px-6">
-      <div className="max-w-7xl mx-auto">
-        <div className="rounded-3xl bg-white/5 ring-1 ring-white/10 backdrop-blur p-12">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-start">
-            {/* Left Column - Title and Description */}
-            <div>
-              <h2 className="text-5xl md:text-6xl font-bold tracking-tight mb-6 text-balance">
-                Frequently Asked Questions
-              </h2>
-              <p className="text-xl text-white/80 leading-relaxed text-pretty">
-                Everything you need to know about the expedition, from physical requirements to booking your spot on
-                this exclusive adventure.
-              </p>
-            </div>
+    <section className="relative z-10 py-32 md:py-48 px-6 bg-[#0a0a0a]">
+      <div className="max-w-6xl mx-auto">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 lg:gap-24">
+          {/* Left Column - Editorial Header */}
+          <motion.div 
+            className="lg:col-span-4"
+            initial={{ opacity: 0, y: 40 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.5 }}
+            transition={{ duration: 1.2, ease: luxuryEase }}
+          >
+            <span className="text-xs uppercase tracking-[0.3em] text-white/40 font-light block mb-8">
+              Essentials
+            </span>
+            <h2 className="text-4xl md:text-5xl font-light text-white tracking-tight leading-[0.95]">
+              <span className="block">What You</span>
+              <span className="block italic font-extralight text-white/60">Should Know</span>
+            </h2>
+            
+            {/* Decorative Rule */}
+            <div className="mt-12 h-px w-16 bg-white/20" />
+          </motion.div>
 
-            {/* Right Column - FAQ Accordion */}
-            <div className="space-y-4">
-              {FAQS.map((faq, index) => (
-                <div
-                  key={index}
-                  className="rounded-2xl bg-white/5 ring-1 ring-white/10 backdrop-blur overflow-hidden"
-                >
-                  <button
-                    onClick={() => toggleFaq(index)}
-                    className="w-full p-6 text-left flex items-center justify-between hover:bg-white/5 transition-colors"
+          {/* Right Column - Editorial Accordion */}
+          <motion.div 
+            className="lg:col-span-8"
+            variants={containerVariants}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.2 }}
+          >
+            <div className="space-y-0 divide-y divide-white/10">
+              {FAQS.map((faq) => {
+                const isOpen = openFaq === faq.id
+                
+                return (
+                  <motion.div
+                    key={faq.id}
+                    variants={itemVariants}
+                    className="py-8 first:pt-0 last:pb-0"
                   >
-                    <h3 className="text-lg font-semibold pr-4">{faq.question}</h3>
-                    {openFaq === index ? (
-                      <Minus className="w-5 h-5 flex-shrink-0" />
-                    ) : (
-                      <Plus className="w-5 h-5 flex-shrink-0" />
-                    )}
-                  </button>
-                  {openFaq === index && (
-                    <div className="px-6 pb-6">
-                      <p className="text-white/80 leading-relaxed">{faq.answer}</p>
-                    </div>
-                  )}
-                </div>
-              ))}
+                    <button
+                      onClick={() => toggleFaq(faq.id)}
+                      className="w-full text-left group"
+                    >
+                      <div className="flex items-baseline justify-between gap-8">
+                        {/* Question - Editorial Typography */}
+                        <h3 className={`
+                          text-xl md:text-2xl font-light tracking-wide
+                          transition-all duration-700 ease-out
+                          ${isOpen ? 'text-white' : 'text-white/60 group-hover:text-white/80'}
+                        `}>
+                          {faq.question}
+                        </h3>
+                        
+                        {/* Minimal Indicator */}
+                        <div className="relative w-6 h-6 flex-shrink-0">
+                          <motion.div 
+                            className="absolute top-1/2 left-0 w-full h-px bg-current"
+                            animate={{ rotate: 0 }}
+                            transition={{ duration: 0.6, ease: luxuryEase }}
+                          />
+                          <motion.div 
+                            className="absolute top-0 left-1/2 w-px h-full bg-current"
+                            animate={{ rotate: isOpen ? 90 : 0, opacity: isOpen ? 0 : 1 }}
+                            transition={{ duration: 0.6, ease: luxuryEase }}
+                          />
+                        </div>
+                      </div>
+                      
+                      {/* Answer - Sparse, Editorial */}
+                      <AnimatePresence mode="wait">
+                        {isOpen && (
+                          <motion.div
+                            initial={{ height: 0, opacity: 0 }}
+                            animate={{ height: "auto", opacity: 1 }}
+                            exit={{ height: 0, opacity: 0 }}
+                            transition={{ duration: 0.8, ease: luxuryEase }}
+                            className="overflow-hidden"
+                          >
+                            <p className="pt-6 text-white/50 font-light leading-relaxed tracking-wide max-w-2xl">
+                              {faq.answer}
+                            </p>
+                          </motion.div>
+                        )}
+                      </AnimatePresence>
+                    </button>
+                  </motion.div>
+                )
+              })}
             </div>
-          </div>
+            
+            {/* Final Note - Assumptive, Calm */}
+            <motion.div 
+              className="mt-16 pt-8 border-t border-white/10"
+              initial={{ opacity: 0 }}
+              whileInView={{ opacity: 1 }}
+              viewport={{ once: true }}
+              transition={{ duration: 1.2, ease: luxuryEase, delay: 0.6 }}
+            >
+              <p className="text-xs uppercase tracking-[0.25em] text-white/30 font-light">
+                Further inquiries may be directed to your concierge
+              </p>
+            </motion.div>
+          </motion.div>
         </div>
       </div>
     </section>
