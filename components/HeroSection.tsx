@@ -6,10 +6,10 @@ import { motion, useScroll, useTransform, useSpring, AnimatePresence } from "fra
 import { useRef, useState, useEffect } from "react"
 
 const BACKGROUND_IMAGES = [
-  '/h6.jpeg',
-  '/h4.jpg',
-  '/h3.jpg',
-  '/h5.jpg'
+  '/h6.webp',
+  '/h4.webp',
+  '/h3.webp',
+  '/h5.webp'
 ]
 
 export function HeroSection() {
