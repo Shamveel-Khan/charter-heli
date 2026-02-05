@@ -101,7 +101,7 @@ export function TourSelectionSection() {
               className={`${index === 0 || index === 3 ? 'md:mt-0' : 'md:mt-32'}`} // Increasing staggered offset
             >
               <Link href={`/tours/${tour.id}`} className="block group">
-                <figure className="relative aspect-[4/5] overflow-hidden bg-white/5 grayscale group-hover:grayscale-0 transition-all duration-1000 ease-out">
+                <figure className="relative aspect-[4/5] overflow-hidden bg-white/5 md:grayscale md:group-hover:grayscale-0 transition-all duration-1000 ease-out">
                   {/* Cinematic Image Container */}
                   <div className="absolute inset-0 transition-transform duration-[2s] ease-[0.25,0.1,0.25,1.0] group-hover:scale-105">
                     <Image
