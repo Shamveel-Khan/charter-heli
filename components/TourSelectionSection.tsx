@@ -4,7 +4,7 @@ import Link from "next/link"
 import Image from "next/image"
 import { motion } from "framer-motion"
 
-const luxuryEase = [0.25, 0.1, 0.25, 1.0]
+const luxuryEase = [0.25, 0.1, 0.25, 1.0] as const
 
 interface Tour {
   id: string
@@ -63,80 +63,76 @@ const itemVariants = {
   },
 }
 
+
+
 export function TourSelectionSection() {
   return (
-    <section className="relative z-10 py-32 md:py-48 px-6 bg-black">
+    <section className="relative z-10 py-24 md:py-48 px-6 bg-[#050505]">
       <div className="max-w-7xl mx-auto">
-        {/* Editorial Header - No explanation, just declaration */}
+        {/* Editorial Header - Minimal */}
         <motion.div 
-          className="mb-24 md:mb-32"
-          initial={{ opacity: 0, y: 40 }}
+          className="mb-24 md:mb-40"
+          initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.5 }}
-          transition={{ duration: 1.2, ease: luxuryEase }}
+          transition={{ duration: 1.5, ease: luxuryEase }}
         >
-          <span className="text-xs uppercase tracking-[0.3em] text-white/40 font-light block mb-6">
-            The Collection
+          <span className="text-[10px] md:text-xs uppercase tracking-[0.4em] text-white/50 font-light block mb-8">
+            Curated Expeditions
           </span>
-          <h2 className="text-5xl md:text-7xl font-light text-white tracking-tight leading-none">
+          <h2 className="font-serif text-5xl md:text-8xl font-thin text-white tracking-tight leading-[0.9]">
             <span className="block">Four</span>
-            <span className="block italic font-extralight text-white/70">Itineraries</span>
+            <span className="block italic text-white/60">Journeys</span>
           </h2>
         </motion.div>
 
-        {/* Asymmetric Editorial Grid */}
+        {/* Grid - High Spacing */}
         <motion.div 
-          className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12"
+          className="grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-24"
           variants={containerVariants}
           initial="hidden"
           whileInView="visible"
-          viewport={{ once: true, amount: 0.2 }}
+          viewport={{ once: true, amount: 0.1 }}
         >
           {TOURS.map((tour, index) => (
             <motion.div
               key={tour.id}
               variants={itemVariants}
-              className={`${index === 0 || index === 3 ? 'md:mt-0' : 'md:mt-24'}`}
+              className={`${index === 0 || index === 3 ? 'md:mt-0' : 'md:mt-32'}`} // Increasing staggered offset
             >
               <Link href={`/tours/${tour.id}`} className="block group">
-                <figure className="relative aspect-[3/4] overflow-hidden bg-white/5">
+                <figure className="relative aspect-[4/5] overflow-hidden bg-white/5 grayscale group-hover:grayscale-0 transition-all duration-1000 ease-out">
                   {/* Cinematic Image Container */}
-                  <div className="absolute inset-0 transition-transform duration-[1.5s] ease-out group-hover:scale-105">
+                  <div className="absolute inset-0 transition-transform duration-[2s] ease-[0.25,0.1,0.25,1.0] group-hover:scale-105">
                     <Image
                       src={tour.image}
                       alt={tour.name}
                       fill
-                      className="object-cover"
+                      className="object-cover opacity-80 group-hover:opacity-100 transition-opacity duration-1000"
                       sizes="(max-width: 768px) 100vw, 50vw"
                     />
                   </div>
                   
-                  {/* Gradient Overlay - Subtle, editorial */}
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-60 group-hover:opacity-40 transition-opacity duration-1000" />
-                  
                   {/* Corner Index - Discreet */}
-                  <div className="absolute top-6 left-6 text-white/30 text-xs uppercase tracking-[0.2em] font-light">
-                    0{index + 1}
+                  <div className="absolute top-6 left-6 text-white/50 text-[10px] uppercase tracking-[0.2em] font-light z-10">
+                    ( 0{index + 1} )
                   </div>
 
-                  {/* Caption Block - Bottom aligned with breathing room */}
-                  <figcaption className="absolute bottom-0 left-0 right-0 p-8 md:p-10">
+                  {/* Caption Block - Outside structure to reduce clutter on image? No, keep inside for magazine feel but clean */}
+                  <figcaption className="absolute bottom-0 left-0 right-0 p-8 md:p-12 bg-gradient-to-t from-black/90 to-transparent">
                     <motion.div
                       initial={{ opacity: 0, y: 20 }}
                       whileInView={{ opacity: 1, y: 0 }}
                       viewport={{ once: true }}
-                      transition={{ duration: 0.8, ease: luxuryEase, delay: 0.4 + index * 0.1 }}
+                      transition={{ duration: 1, ease: luxuryEase, delay: 0.2 }}
                     >
-                      <span className="block text-xs uppercase tracking-[0.25em] text-white/50 mb-3 font-light group-hover:text-white/70 transition-colors duration-700">
+                      <span className="block text-[10px] uppercase tracking-[0.3em] text-white/70 mb-4 font-light">
                         {tour.subtitle}
                       </span>
-                      <h3 className="text-2xl md:text-3xl font-light text-white tracking-wide group-hover:tracking-wider transition-all duration-700">
+                      <h3 className="font-serif text-3xl md:text-4xl font-light text-white italic">
                         {tour.name}
                       </h3>
                     </motion.div>
-                    
-                    {/* Cinematic Line Reveal on Hover */}
-                    <div className="mt-6 h-px w-0 bg-white/40 group-hover:w-16 transition-all duration-1000 ease-out" />
                   </figcaption>
                 </figure>
               </Link>
@@ -144,8 +140,8 @@ export function TourSelectionSection() {
           ))}
         </motion.div>
 
-        {/* Spacer - No explanation text, just space */}
-        <div className="h-32 md:h-48" />
+        {/* Spacer */}
+        <div className="h-24 md:h-64" />
       </div>
     </section>
   )

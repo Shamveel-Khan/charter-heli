@@ -1,254 +1,279 @@
 "use client"
 
-import { Compass } from "lucide-react"
+import { Compass, Menu, X } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { motion, useScroll, useTransform, useSpring, AnimatePresence } from "framer-motion"
 import { useRef, useState, useEffect } from "react"
+import Link from "next/link"
 
 const BACKGROUND_IMAGES = [
   '/h6.webp',
-  '/h4.webp',
-  '/h3.webp',
-  '/h5.webp'
+  '/h7.jpg',
+  '/h8.jpg',
+  '/h9.jpg'
 ]
 
 export function HeroSection() {
   const containerRef = useRef<HTMLDivElement>(null)
   const [currentImageIndex, setCurrentImageIndex] = useState(0)
+  const [isMenuOpen, setIsMenuOpen] = useState(false)
   
-  // Track scroll progress for parallax and fade effects
-  const { scrollYProgress, scrollY } = useScroll({
-    target: containerRef,
-    offset: ["start start", "end start"]
-  })
+  // Luxury easing: "The Luxury Curve" - slow entrance, practically stops, then settles
+  const luxuryEase = [0.25, 0.1, 0.25, 1.0] as const
 
-  // Smooth spring animation for parallax
-  const smoothProgress = useSpring(scrollYProgress, {
-    stiffness: 100,
-    damping: 30,
-    restDelta: 0.001
-  })
+  const { scrollY } = useScroll()
 
-  // Parallax effect: Background moves at 0.5x scroll speed
-  const backgroundY = useTransform(smoothProgress, [0, 1], ["0%", "50%"])
+  // Parallax effect: Background moves at very slow pace
+  const backgroundY = useTransform(scrollY, [0, 1000], ["0%", "30%"])
   
-  // Fade out and scale down content on scroll
-  const contentOpacity = useTransform(scrollY, [0, 400], [1, 0])
-  const contentY = useTransform(scrollY, [0, 400], [0, -100])
-  const contentScale = useTransform(scrollY, [0, 400], [1, 0.9])
+  // Fade out effect
+  const contentOpacity = useTransform(scrollY, [0, 500], [1, 0])
 
-  // Slideshow effect - change image every 3 seconds
+  // Slideshow - slower pace (8s)
   useEffect(() => {
     const interval = setInterval(() => {
       setCurrentImageIndex((prevIndex) => 
         (prevIndex + 1) % BACKGROUND_IMAGES.length
       )
-    }, 3000)
+    }, 8000)
 
     return () => clearInterval(interval)
   }, [])
 
-  // Animation variants for staggered entrance
+  // Animation variants customized for "Luxury" feel
   const containerVariants = {
     hidden: { opacity: 0 },
     visible: {
       opacity: 1,
       transition: {
-        staggerChildren: 0.1,
-        delayChildren: 0.2
+        staggerChildren: 0.2, // Slow stagger
+        delayChildren: 0.5
       }
     }
   }
 
-  const popUpVariants = {
+  const revealVariants = {
     hidden: { 
       opacity: 0, 
-      y: 60,
-      scale: 0.8,
+      y: 40,
       filter: "blur(10px)"
     },
     visible: { 
       opacity: 1, 
       y: 0,
-      scale: 1,
       filter: "blur(0px)",
       transition: {
-        type: "spring",
-        damping: 12,
-        stiffness: 100,
-        mass: 0.8
+        duration: 1.8,
+        ease: luxuryEase
       }
     }
   }
 
-  const navItemVariants = {
+  const navVariants = {
     hidden: { opacity: 0, y: -20 },
     visible: { 
       opacity: 1, 
       y: 0,
       transition: {
-        type: "spring",
-        damping: 20,
-        stiffness: 100
+        duration: 1.2,
+        ease: luxuryEase,
+        delay: 0.2
       }
     }
   }
 
-  const logoVariants = {
-    hidden: { opacity: 0, scale: 0.5, rotate: -180 },
-    visible: { 
-      opacity: 1, 
-      scale: 1, 
-      rotate: 0,
-      transition: {
-        type: "spring",
-        damping: 15,
-        stiffness: 200
-      }
+  const mobileMenuVariants = {
+    closed: { 
+      opacity: 0,
+       // Fade only, no slide for ultra premium feel, or very subtle slide
+      transition: { duration: 0.8, ease: luxuryEase }
+    },
+    open: { 
+      opacity: 1,
+      transition: { duration: 0.8, ease: luxuryEase }
     }
   }
+  
+  const mobileLinkVariants = {
+    closed: { y: 20, opacity: 0 },
+    open: (i: number) => ({ 
+      y: 0, 
+      opacity: 1,
+      transition: {
+        delay: i * 0.1,
+        duration: 1.2,
+        ease: luxuryEase
+      }
+    })
+  }
+
+  const NAV_ITEMS = ["News", "Experience", "About Us", "Contact"]
 
   return (
-    <div ref={containerRef} className="relative min-h-screen overflow-hidden">
+    <div ref={containerRef} className="relative min-h-[100svh] overflow-hidden bg-[#050505]">
       {/* Background Image Slideshow with Parallax */}
-      <AnimatePresence mode="sync">
+      <AnimatePresence mode="popLayout" initial={false}>
         <motion.div
-          key={currentImageIndex}
-          className="absolute inset-0 bg-cover bg-center bg-no-repeat"
-          style={{
-            backgroundImage: `url('${BACKGROUND_IMAGES[currentImageIndex]}')`,
-            y: backgroundY,
-            scale: 1.2
-          }}
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          exit={{ opacity: 0 }}
-          transition={{ duration: 1.5, ease: [0.25, 0.1, 0.25, 1.0] }}
+           key={currentImageIndex}
+           className="absolute inset-0 bg-cover bg-center bg-no-repeat"
+           initial={{ opacity: 0, scale: 1.1 }}
+           animate={{ opacity: 1, scale: 1 }}
+           exit={{ opacity: 0 }}
+           transition={{ duration: 2.5, ease: luxuryEase }} 
+           style={{
+             backgroundImage: `url('${BACKGROUND_IMAGES[currentImageIndex]}')`,
+             y: backgroundY
+           }}
         >
-          <div className="absolute inset-0 bg-gradient-to-b from-black/40 to-black/80" />
+          {/* Heavy cinematic darkening for text legibility & mood */}
+          <div className="absolute inset-0 bg-black/40" />
+          <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-transparent to-black/60" />
         </motion.div>
       </AnimatePresence>
 
-      {/* Navigation */}
+      {/* Navigation - Minimalist */}
       <motion.nav 
-        className="relative z-10 flex items-center justify-between p-6"
+        className="relative z-50 flex items-center justify-between p-8 md:p-12"
         initial="hidden"
         animate="visible"
         variants={containerVariants}
       >
-        {/* Logo */}
+        {/* Logo - Pure Text or Minimal Icon */}
         <motion.div 
-          className="flex items-center gap-2 px-4 py-2 bg-black/40 ring-1 ring-white/20 backdrop-blur rounded-full cursor-pointer hover:bg-black/60 transition-colors"
-          variants={logoVariants}
-          whileHover={{ scale: 1.05 }}
-          whileTap={{ scale: 0.95 }}
+          className="flex items-center gap-3 cursor-pointer group"
+          variants={navVariants}
         >
-          <Compass className="w-5 h-5" />
-          <span className="font-medium text-balance">New York</span>
+          <Compass className="w-5 h-5 text-white/80 group-hover:text-white transition-colors duration-500" strokeWidth={1} />
+          <span className="font-serif text-lg tracking-[0.2em] text-white uppercase opacity-90 group-hover:opacity-100 transition-opacity">Alpine Lift</span>
         </motion.div>
 
-        {/* Navigation Links */}
-        <div className="hidden md:flex items-center gap-1">
-          {["News", "Experience", "About Us", "Contact"].map((item, index) => (
+        {/* Desktop Navigation Links - Uppercase, Spaced */}
+        <div className="hidden md:flex items-center gap-12">
+          {NAV_ITEMS.map((item, index) => (
             <motion.a
               key={item}
               href="#"
-              className="px-4 py-2 bg-black/40 ring-1 ring-white/20 backdrop-blur rounded-full hover:bg-black/50 transition-colors relative overflow-hidden group"
-              variants={navItemVariants}
-              custom={index}
-              whileHover={{ scale: 1.05, y: -2 }}
-              whileTap={{ scale: 0.95 }}
+              className="text-xs uppercase tracking-[0.25em] text-white/70 hover:text-white transition-colors duration-500 relative group"
+              variants={navVariants}
             >
-              <span className="relative z-10">{item}</span>
-              <motion.div
-                className="absolute inset-0 bg-white/10"
-                initial={{ x: "-100%" }}
-                whileHover={{ x: "100%" }}
-                transition={{ duration: 0.5 }}
-              />
+              {item}
+              <span className="absolute -bottom-2 left-0 w-0 h-px bg-white transition-all duration-700 ease-out group-hover:w-full" />
             </motion.a>
           ))}
         </div>
 
-        {/* Book Now Button */}
+        {/* Desktop Book Now Button - Ghost/Minimal */}
         <motion.div 
-          className="flex items-center gap-3"
-          variants={popUpVariants}
+          className="hidden md:flex items-center"
+          variants={navVariants}
         >
-          <motion.div
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
+          <Button 
+            variant="ghost" 
+            className="text-xs uppercase tracking-[0.2em] text-white hover:text-white hover:bg-white/10 rounded-none border border-white/30 px-8 py-6 transition-all duration-700"
           >
-            <Button className="bg-white text-black hover:bg-white/90 rounded-full px-6 shadow-lg hover:shadow-xl transition-shadow">
-              Book Now
-            </Button>
-          </motion.div>
+            Reserve
+          </Button>
         </motion.div>
+
+        {/* Mobile Menu Toggle - Minimal */}
+        <motion.button
+          className="md:hidden text-white z-50 mix-blend-difference"
+          onClick={() => setIsMenuOpen(!isMenuOpen)}
+          whileTap={{ scale: 0.95 }}
+        >
+          <span className="sr-only">Menu</span>
+          {isMenuOpen ? <X className="w-6 h-6" strokeWidth={1} /> : <Menu className="w-6 h-6" strokeWidth={1} />}
+        </motion.button>
       </motion.nav>
 
-      {/* Hero Content with Scroll-based Fade */}
+      {/* Mobile Menu Overlay - Full Screen / Minimal */}
+      <AnimatePresence>
+        {isMenuOpen && (
+          <motion.div
+            initial="closed"
+            animate="open"
+            exit="closed"
+            variants={mobileMenuVariants}
+            className="fixed inset-0 z-40 bg-[#050505] flex flex-col items-center justify-center"
+          >
+             <div className="flex flex-col items-center space-y-12">
+              {NAV_ITEMS.map((item, i) => (
+                <motion.div
+                  key={item}
+                  custom={i}
+                  variants={mobileLinkVariants}
+                >
+                  <Link 
+                    href="#" 
+                    className="font-serif text-4xl text-white/90 hover:text-white transition-colors tracking-wide italic"
+                    onClick={() => setIsMenuOpen(false)}
+                  >
+                    {item}
+                  </Link>
+                </motion.div>
+              ))}
+             </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
+      {/* Hero Content - Editorial Structure */}
       <motion.div 
-        className="relative z-10 flex flex-col items-center justify-center min-h-[calc(100vh-120px)] px-6 text-center"
-        style={{
-          opacity: contentOpacity,
-          y: contentY,
-          scale: contentScale
-        }}
+        className="relative z-10 flex flex-col items-center justify-center min-h-[calc(100svh-200px)] px-6 text-center"
+        style={{ opacity: contentOpacity }}
       >
         <motion.div
           initial="hidden"
           animate="visible"
           variants={containerVariants}
-          className="flex flex-col items-center"
+          className="flex flex-col items-center max-w-5xl"
         >
-          {/* Main Headline */}
-          <motion.h1 
-            className="text-6xl md:text-8xl font-light tracking-tight mb-6 text-balance bg-clip-text text-transparent bg-gradient-to-b from-white to-white/80"
-            variants={popUpVariants}
+          {/* Small eyebrow text */}
+          <motion.span 
+            className="text-[10px] md:text-xs uppercase tracking-[0.4em] text-white/60 mb-8 md:mb-12"
+            variants={revealVariants}
           >
-            Alpine Lift
+            The Private Charter
+          </motion.span>
+
+          {/* Main Headline - Serif, Authority */}
+          <motion.h1 
+            className="font-serif text-6xl md:text-9xl font-light tracking-tight mb-8 text-white leading-[0.9]"
+            variants={revealVariants}
+          >
+            Ascend <span className="italic opacity-80">Beyond</span>
           </motion.h1>
 
-          {/* Subheading */}
+          {/* Subheading - Short, Poetic, Withheld */}
           <motion.p 
-            className="text-xl md:text-2xl text-white/90 max-w-4xl mb-12 leading-relaxed text-pretty"
-            variants={popUpVariants}
+            className="text-sm md:text-base text-white/80 max-w-lg mb-16 leading-relaxed tracking-wide font-light"
+            variants={revealVariants}
           >
-            Soar above towering mountains and dramatic landscapes on an unforgettable helicopter sightseeing tour. 
-            Enjoy panoramic views, expert-guided flights, and the highest safety standards.
+            Silence above the peaks. A view reserved for the few.
           </motion.p>
 
-          {/* CTA Buttons */}
+          {/* Single Primary CTA - "Assumes Confidence" */}
           <motion.div 
-            className="flex gap-4"
-            variants={popUpVariants}
+            variants={revealVariants}
           >
-            <motion.div
-              whileHover={{ scale: 1.05, y: -5 }}
-              whileTap={{ scale: 0.95 }}
+            <Button 
+               size="lg" 
+               className="bg-white text-black hover:bg-white/90 rounded-none px-12 py-7 text-xs uppercase tracking-[0.25em] transition-all duration-700 ease-out hover:tracking-[0.35em] "
             >
-              <Button 
-                size="lg" 
-                className="bg-white text-black hover:bg-white/90 rounded-full px-8 shadow-2xl hover:shadow-white/25 transition-all"
-              >
-                Start Your Journey
-              </Button>
-            </motion.div>
-            
-            <motion.div
-              whileHover={{ scale: 1.05, y: -5 }}
-              whileTap={{ scale: 0.95 }}
-            >
-              <Button 
-                size="lg" 
-                variant="outline" 
-                className="rounded-full px-8 border-white/30 hover:bg-white/10 backdrop-blur-sm"
-              >
-                Watch Video
-              </Button>
-            </motion.div>
+               Discover
+            </Button>
           </motion.div>
         </motion.div>
+      </motion.div>
+      
+      {/* Scroll Indicator - Minimal */}
+      <motion.div 
+        className="absolute bottom-10 left-1/2 -translate-x-1/2 hidden md:flex flex-col items-center gap-2 opacity-50"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 0.5 }}
+        transition={{ delay: 2, duration: 2 }}
+      >
+        <div className="w-px h-16 bg-gradient-to-b from-white to-transparent" />
       </motion.div>
     </div>
   )
