@@ -107,7 +107,12 @@ export function HeroSection() {
     })
   }
 
-  const NAV_ITEMS = ["News", "Experience", "About Us", "Contact"]
+  const NAV_ITEMS = [
+    { label: "About Us", href: "#about" },
+    { label: "Experience", href: "#tours" },
+    { label: "FAQ", href: "#faq" },
+    { label: "Contact", href: "#contact" },
+  ]
 
   return (
     <div ref={containerRef} className="relative min-h-[100svh] overflow-hidden bg-[#050505]">
@@ -144,19 +149,19 @@ export function HeroSection() {
           variants={navVariants}
         >
           <Compass className="w-5 h-5 text-white/80 group-hover:text-white transition-colors duration-500" strokeWidth={1} />
-          <span className="font-serif text-lg tracking-[0.2em] text-white uppercase opacity-90 group-hover:opacity-100 transition-opacity">Alpine Lift</span>
+          <span className="font-serif text-lg tracking-[0.2em] text-white uppercase opacity-100 group-hover:opacity-80 transition-opacity">Alpine Lift</span>
         </motion.div>
 
         {/* Desktop Navigation Links - Uppercase, Spaced */}
         <div className="hidden md:flex items-center gap-12">
-          {NAV_ITEMS.map((item, index) => (
+          {NAV_ITEMS.map((item) => (
             <motion.a
-              key={item}
-              href="#"
-              className="text-xs uppercase tracking-[0.25em] text-white/70 hover:text-white transition-colors duration-500 relative group"
+              key={item.label}
+              href={item.href}
+              className="text-xs uppercase tracking-[0.25em] text-white hover:text-white/80 transition-colors duration-500 relative group"
               variants={navVariants}
             >
-              {item}
+              {item.label}
               <span className="absolute -bottom-2 left-0 w-0 h-px bg-white transition-all duration-700 ease-out group-hover:w-full" />
             </motion.a>
           ))}
@@ -199,16 +204,16 @@ export function HeroSection() {
              <div className="flex flex-col items-center space-y-12">
               {NAV_ITEMS.map((item, i) => (
                 <motion.div
-                  key={item}
+                  key={item.label}
                   custom={i}
                   variants={mobileLinkVariants}
                 >
                   <Link 
-                    href="#" 
-                    className="font-serif text-4xl text-white/90 hover:text-white transition-colors tracking-wide italic"
+                    href={item.href} 
+                    className="font-serif text-4xl text-white hover:text-white/80 transition-colors tracking-wide italic"
                     onClick={() => setIsMenuOpen(false)}
                   >
-                    {item}
+                    {item.label}
                   </Link>
                 </motion.div>
               ))}
@@ -230,7 +235,7 @@ export function HeroSection() {
         >
           {/* Small eyebrow text */}
           <motion.span 
-            className="text-[10px] md:text-xs uppercase tracking-[0.4em] text-white/60 mb-8 md:mb-12"
+            className="text-[10px] md:text-xs uppercase tracking-[0.4em] text-white mb-8 md:mb-12 font-medium"
             variants={revealVariants}
           >
             The Private Charter
@@ -246,7 +251,7 @@ export function HeroSection() {
 
           {/* Subheading - Short, Poetic, Withheld */}
           <motion.p 
-            className="text-sm md:text-base text-white/80 max-w-lg mb-16 leading-relaxed tracking-wide font-light"
+            className="text-sm md:text-base text-white max-w-lg mb-16 leading-relaxed tracking-wide font-light"
             variants={revealVariants}
           >
             Silence above the peaks. A view reserved for the few.

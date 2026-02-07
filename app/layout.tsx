@@ -20,9 +20,9 @@ const cormorantGaramond = Cormorant_Garamond({
 })
 
 export const metadata: Metadata = {
-  title: "Son Doong Expeditions — Journey to the World's Largest Cave",
+  title: "Alpine Lift",
   description:
-    "Book a once-in-a-lifetime expedition into Son Doong, the world's largest cave. Discover a lost world of giant stalagmites, underground rivers, and a unique jungle ecosystem.",
+    "Experience the Swiss Alps like never before with Alpine Lift. Premium helicopter tours, glacier excursions, and exclusive mountain flights.",
   generator: "v0.app",
 }
 

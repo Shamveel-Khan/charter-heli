@@ -15,28 +15,28 @@ interface Tour {
 
 const TOURS: Tour[] = [
   {
-    id: "morning",
-    name: "The Dawn Ascent",
-    subtitle: "First Light",
-    image: "/tours/morning-flight.webp",
+    id: "titlis",
+    name: "Titlis",
+    subtitle: "Glacier Excursion",
+    image: "/tours/t1.jfif",
   },
   {
-    id: "sunset",
-    name: "Golden Hour",
-    subtitle: "The Long Shadow",
-    image: "/tours/sunset-experience.webp",
+    id: "matterhorn",
+    name: "Matterhorn",
+    subtitle: "Iconic Peak",
+    image: "/tours/m1.jpg",
   },
   {
-    id: "fullday",
-    name: "Total Immersion",
-    subtitle: "Complete Journey",
-    image: "/tours/full-day-tour.webp",
+    id: "jungfraujoch",
+    name: "Jungfraujoch",
+    subtitle: "Top of Europe",
+    image: "/tours/j1.jpg",
   },
   {
-    id: "vip",
-    name: "Private Charter",
-    subtitle: "Your Horizon",
-    image: "/tours/vip-private.webp",
+    id: "vierwaldstattersee",
+    name: "Vierwaldstättersee",
+    subtitle: "Lake Lucerne",
+    image: "/tours/v1.avif",
   },
 ]
 
@@ -77,12 +77,12 @@ export function TourSelectionSection() {
           viewport={{ once: true, amount: 0.5 }}
           transition={{ duration: 1.5, ease: luxuryEase }}
         >
-          <span className="text-[10px] md:text-xs uppercase tracking-[0.4em] text-white/50 font-light block mb-8">
+          <span className="text-[10px] md:text-xs uppercase tracking-[0.4em] text-white/80 font-medium block mb-8">
             Curated Expeditions
           </span>
           <h2 className="font-serif text-5xl md:text-8xl font-thin text-white tracking-tight leading-[0.9]">
-            <span className="block">Four</span>
-            <span className="block italic text-white/60">Journeys</span>
+            <span className="block">Alpine</span>
+            <span className="block italic text-white/60">Lift</span>
           </h2>
         </motion.div>
 
@@ -101,7 +101,7 @@ export function TourSelectionSection() {
               className={`${index === 0 || index === 3 ? 'md:mt-0' : 'md:mt-32'}`} // Increasing staggered offset
             >
               <Link href={`/tours/${tour.id}`} className="block group">
-                <figure className="relative aspect-[4/5] overflow-hidden bg-white/5 md:grayscale md:group-hover:grayscale-0 transition-all duration-1000 ease-out">
+                <figure className="relative aspect-[4/5] overflow-hidden bg-white/5 transition-all duration-1000 ease-out">
                   {/* Cinematic Image Container */}
                   <div className="absolute inset-0 transition-transform duration-[2s] ease-[0.25,0.1,0.25,1.0] group-hover:scale-105">
                     <Image
@@ -126,7 +126,7 @@ export function TourSelectionSection() {
                       viewport={{ once: true }}
                       transition={{ duration: 1, ease: luxuryEase, delay: 0.2 }}
                     >
-                      <span className="block text-[10px] uppercase tracking-[0.3em] text-white/70 mb-4 font-light">
+                      <span className="block text-[10px] uppercase tracking-[0.3em] text-white/90 mb-4 font-medium">
                         {tour.subtitle}
                       </span>
                       <h3 className="font-serif text-3xl md:text-4xl font-light text-white italic">
