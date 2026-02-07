@@ -18,7 +18,7 @@ const TOURS: Tour[] = [
     id: "titlis",
     name: "Titlis",
     subtitle: "Glacier Excursion",
-    image: "/tours/t1.jfif",
+    image: "/tours/t1.jpg",
   },
   {
     id: "matterhorn",
@@ -36,7 +36,7 @@ const TOURS: Tour[] = [
     id: "vierwaldstattersee",
     name: "Vierwaldstättersee",
     subtitle: "Lake Lucerne",
-    image: "/tours/v1.avif",
+    image: "/tours/v1.jpg",
   },
 ]
 
