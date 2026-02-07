@@ -38,7 +38,6 @@ export function CTAHelicopterSection() {
         <div 
           className="absolute inset-0 bg-cover bg-center scale-105"
           style={{ 
-            backgroundImage: "url('/images/helicopter-cinematic.jpg')",
             backgroundColor: "#050505"
           }}
         />
