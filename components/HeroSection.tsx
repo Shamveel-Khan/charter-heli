@@ -294,6 +294,7 @@ export function HeroSection() {
                         <Button
                             size="lg"
                             className="bg-white text-black hover:bg-white/90 rounded-none px-12 py-7 text-xs uppercase tracking-[0.25em] transition-all duration-700 ease-out hover:tracking-[0.35em] "
+                            onClick={() => scrollToSection("#cta")}
                         >
                             Discover
                         </Button>
