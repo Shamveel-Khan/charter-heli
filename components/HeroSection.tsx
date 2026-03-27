@@ -6,11 +6,11 @@ import {
     motion,
     useScroll,
     useTransform,
-    useSpring,
     AnimatePresence,
 } from "framer-motion";
 import { useRef, useState, useEffect } from "react";
 import Link from "next/link";
+import { toast } from "@/hooks/use-toast";
 
 const BACKGROUND_IMAGES = ["/h8.jpg", "/h9.jpg", "/h7.jpg", "/h6.webp"];
 
@@ -126,6 +126,13 @@ export function HeroSection() {
         }
     };
 
+    const handleReserve = () => {
+        toast({
+            title: "Reservation Confirmed",
+            description: "Your helicopter tour request has been reserved.",
+        });
+    };
+
     return (
         <div
             ref={containerRef}
@@ -199,6 +206,7 @@ export function HeroSection() {
                     <Button
                         variant="ghost"
                         className="text-xs uppercase tracking-[0.2em] text-white hover:text-white hover:bg-white/10 rounded-none border border-white/30 px-8 py-6 transition-all duration-700"
+                        onClick={handleReserve}
                     >
                         Reserve
                     </Button>
